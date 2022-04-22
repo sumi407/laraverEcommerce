@@ -4,7 +4,7 @@
         <div class="container p-4">
             <div class="row mx-0">
                 <div class="card p-5">
-                    <h2>Add Product</h2>
+                    <h2>Edit Product</h2>
             
                     <div class="card-body">
                         <form action="{{ url( 'update-product/'.$product->id) }}" enctype="multipart/form-data" method="POST">
@@ -14,7 +14,9 @@
                                 <div class="col-12 mb-3">
                                 <select  class="form-select" >
                                    <option value="" >{{ $product->category->name }}</option>
-                                  
+                                   @foreach ($category as $item)
+                                        <option value="{{ $item->id}}">{{ $item->name }}</option>
+                                    @endforeach
                                 </select>
 
                                 </div>

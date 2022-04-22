@@ -48,8 +48,9 @@ class ptoductController extends Controller
 
     }
     public function edit($id){
+        $category = category::all();
         $product =product::find($id);
-       return view('admin.product.edit',compact('product'));
+       return view('admin.product.edit',compact('product','category'));
     }
     public function update(Request $request,$id){
         $product =product::find($id);

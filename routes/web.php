@@ -20,6 +20,12 @@ use App\Http\Controllers\forntEnd\forntendController;
 
 
 Route::get('/',[forntendController::class,'index']);
+Route::get('category',[forntendController::class,'category']);
+Route::get('view-category/{id}',[forntendController::class,'viewcat']);
+Route::get('category/{cate_name}/{item_name}',[forntendController::class,'productview']);
+
+
+
 
 Auth::routes();
 
