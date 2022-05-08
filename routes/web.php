@@ -14,6 +14,10 @@ use App\Http\Controllers\forntEnd\cartController;
 use App\Http\Controllers\forntEnd\userController;
 use App\Http\Controllers\forntEnd\checkoutController;
 use App\Http\Controllers\forntEnd\wishlistController;
+use App\Http\Controllers\forntEnd\ratingController;
+use App\Http\Controllers\forntEnd\reviewController;
+
+
 
 
 
@@ -64,6 +68,9 @@ Route::middleware(['auth'])->group(function () {
   Route::get('my-orders',[userController::class,'index']);
   Route::get('view-order/{id}',[userController::class,'view']);
   Route::get('wishlist',[wishlistController::class,'index']);
+  Route::post('add_rating',[ratingController::class,'addRatting']);
+  Route::get('add_review/{product_name}/userreview',[reviewController::class,'addreview']);
+  Route::post('add_review',[reviewController::class,'create']);
  
 
 });

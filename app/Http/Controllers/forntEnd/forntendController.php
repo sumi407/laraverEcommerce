@@ -5,6 +5,9 @@ namespace App\Http\Controllers\forntEnd;
 use App\Http\Controllers\Controller;
 use App\Models\product;
 use App\Models\category;
+use App\Models\rating;
+use Illuminate\Support\Facades\Auth;
+
 
 use Illuminate\Http\Request;
 
@@ -37,7 +40,17 @@ class forntendController extends Controller
             if(product::where('name',$item_name)->exists())
             {
                 $product =product::where('name',$item_name)->first();
-                return view ('fornttent.product.produt_details',compact('product'));
+                $rating = rating::where('prod_id',$product->id)->get();
+                $rating_sum = rating::where('prod_id',$product->id)->sum('stars_rated');
+                $user_rating = rating::where('prod_id',$product->id)->where('user_id',Auth::id())->first();
+                if($rating->count() > 0)
+                {
+                    $rating_value = $rating_sum/$rating->count();
+                }
+                else{
+                    $rating_value = 0;
+                }
+                return view ('fornttent.product.produt_details',compact('product','rating','rating_value','user_rating'));
 
             }
             else{
