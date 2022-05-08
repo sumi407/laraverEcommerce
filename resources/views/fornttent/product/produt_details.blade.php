@@ -8,11 +8,11 @@
                 <nav aria-label="breadcrumb" class="bg-info p-2">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item  text-white"><a href="{{ url('/' )}}">Home</a></li>
-                        <li class="breadcrumb-item text-white"><a href="">{{ $product->category->name}}</a></li>
+                        <li class="breadcrumb-item text-white"><a href="{{ url('view-category/'.$product->category->id )}}">{{ $product->category->name}}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
                     </ol>
                 </nav>
-                <div class="row bg-light p-3 my-4">
+                <div class="row bg-light product_data p-3  my-4">
                     <div class="col-4">
                         <img src="{{ asset('assets/uploads/products/'.$product->image) }}" width="300" height="350" alt="">
                     </div>
@@ -28,10 +28,13 @@
                             <span class="bg-danger my-2 p-1 text-white rounded">Out of stock</span>
                         @endif
                         <div class="d-flex flex-row my-4 ">
-                        <input type="number" id="quantity" class="px-4" value="1" name="quantity" min="1" max="100">
+                         <input type="hidden" name="product_id" value="{{ $product->id}}" class="prod_id">
+                        <input type="number" id="quantity" class="px-4  qty-input" value="1" name="product_qty" min="1" max="100">
                           
-                            <button type="" class="btn-success mx-3  btn "> Add to Wishlist</button>
-                            <a href="" class="btn-primary mx-3  btn "> <i class="fas fa-cart-arrow-down"></i> Add to Cart</a>
+                        <button type="submit" class="btn-success mx-3 addTowishlist  btn "> <i class="fas fa-heart"></i> Add to Wishlist</button>
+                        @if($product->qty > 0)
+                            <button type="submit" class="btn-primary mx-3 addtocartbtn  btn "> <i class="fas fa-cart-arrow-down"></i> Add to Cart</button>
+                        @endif
 
                         </div>
 
@@ -44,3 +47,5 @@
       
     @endsection
     @section('scripts')
+   
+   

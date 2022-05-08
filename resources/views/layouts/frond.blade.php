@@ -22,6 +22,7 @@
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
   <link id="pagestyle" href="{{ asset('forntEnd/css/bootstrap.css') }}" rel="stylesheet" />
   <link id="pagestyle" href="{{ asset('forntEnd/css/custom.css') }}" rel="stylesheet" />
     <!-- Fonts -->
@@ -30,15 +31,55 @@
 
 </head>
 
-<body class="">
-@include('layouts.inc.forntnav')
+<body class=""> 
+     @include('layouts.inc.forntnav')
         <div class="content">
           @yield('content')
        </div>
-   
+   <div class="whattsapp_chat">
+     <a href=" https://wa.me/+8801614857798?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank">
+       <img src="{{ asset('assets/images/whattsapp.png')}}" alt=" whattsapp logo" width="70">
+     </a>
+   </div>
    
 
   <script src="{{ asset('forntEnd/js/bootstrap.js') }}" defer></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/62776630b0d10b6f3e71206d/1g2h7kplf';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+  <script src="{{ asset('forntEnd/js/custom.js') }}" defer></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script>
+
+    var availableTags = [ ];
+    $.ajax({
+      method:"GET",
+      url:"/product-list",
+     
+      success:function (response){
+        startAutoComplete(response);
+      }
+    });
+    function startAutoComplete(availableTags){
+      $("#search-product").autocomplete({
+      source: availableTags
+    });
+
+    }
+ 
+  </script>
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @if (session('status'))
     <script>

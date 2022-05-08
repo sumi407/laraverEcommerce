@@ -1,0 +1,9 @@
+.ui-menu {
+    z-index: 99999!important;
+}
+
+.whattsapp_chat {
+    position: fixed;
+    bottom: 2%;
+    left: 1%;
+}

@@ -3,7 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\categoryController;
 use App\Http\Controllers\Admin\ptoductController;
+use App\Http\Controllers\Admin\Fornendcontroller;
+use App\Http\Controllers\Admin\orderController;
+use App\Http\Controllers\Admin\dashboardController;
+use Illuminate\Support\Facades\Auth;
+
+
 use App\Http\Controllers\forntEnd\forntendController;
+use App\Http\Controllers\forntEnd\cartController;
+use App\Http\Controllers\forntEnd\userController;
+use App\Http\Controllers\forntEnd\checkoutController;
+use App\Http\Controllers\forntEnd\wishlistController;
+
+
+
 
 
 
@@ -25,11 +38,35 @@ Route::get('view-category/{id}',[forntendController::class,'viewcat']);
 Route::get('category/{cate_name}/{item_name}',[forntendController::class,'productview']);
 
 
+Route::get('product-list',[forntendController::class,'productlistAjax']);
+Route::post('searchproduct',[forntendController::class,'searchproduct']);
 
 
+
+
+Route::get('load-cart-data',[cartController::class,'cartcount']);
+Route::get('load-wishlist-data',[wishlistController::class,'wishcount']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('add-to-cart',[cartController::class,'addProduct']);
+Route::post('delete_cart_item',[cartController::class,'deleteprod']);
+Route::post('update_cart',[cartController::class,'updatecart']);
+Route::post('add-to-wishlist',[wishlistController::class,'add']);
+Route::post('delete_wishlist_item',[wishlistController::class,'deletewishlist']);
+
+
+
+Route::middleware(['auth'])->group(function () {
+  Route::get('cart',[cartController::class,'viewcart']);
+  Route::get('checkout',[checkoutController::class,'index']);
+  Route::post('place-order',[checkoutController::class,'placeorder']);
+  Route::get('my-orders',[userController::class,'index']);
+  Route::get('view-order/{id}',[userController::class,'view']);
+  Route::get('wishlist',[wishlistController::class,'index']);
+ 
+
+});
 
  Route::middleware(['auth','isAdmin'])->group(function (){
     Route::get('/dashboard', 
@@ -48,6 +85,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
       Route::get('edit-product/{id}',[ptoductController::class,'edit']);
       Route::put('update-product/{id}',[ptoductController::class,'update']);
       Route::get('delete-product/{id}',[ptoductController::class,'destroy']);
+      Route::get('orders',[orderController::class,'index']);
+      Route::get('admin/view-order/{id}',[orderController::class,'view']);
+      Route::put('update-order/{id}',[orderController::class,'updateOrder']);
+      Route::get('order-history',[orderController::class,'orderhistory']);
+      Route::get('users',[dashboardController::class,'users']);
+      Route::get('view-user/{id}',[dashboardController::class,'viewuser']);
+
+
+   
+
+
+   
+    
 
 
  });

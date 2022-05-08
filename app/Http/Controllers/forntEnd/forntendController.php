@@ -50,4 +50,33 @@ class forntendController extends Controller
         }
 
     }
+    public function productlistAjax()
+    {
+        $products=product::select('name')->where('status','0')->get();
+        $data = [];
+
+        foreach ($products as $item)
+        {
+            $data [] = $item['name'];
+        }
+        return $data;
+    }
+
+    public function searchproduct(Request $request)
+    {
+        $searched_product = $request->product_name;
+        if($searched_product != "")
+        {
+            $product = product::where("name","LIKE","%$searched_product%")->first();
+            if($product){
+                return redirect('category/'.$product->category->name.'/'.$product->name);
+            }
+            else{
+                 return redirect()->back()->with("status","No Product Matched Your Searc");
+            }
+        }
+        else{
+             return redirect()->back();
+        }
+    }
 }
