@@ -71,6 +71,9 @@ Route::middleware(['auth'])->group(function () {
   Route::post('add_rating',[ratingController::class,'addRatting']);
   Route::get('add_review/{product_name}/userreview',[reviewController::class,'addreview']);
   Route::post('add_review',[reviewController::class,'create']);
+  Route::get('edit_review/{product_name}/userreview',[reviewController::class,'edit']);
+  Route::put('update_review',[reviewController::class,'update']);
+
  
 
 });

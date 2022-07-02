@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\product;
 use App\Models\category;
 use App\Models\rating;
+use App\Models\review;
+;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -43,6 +46,7 @@ class forntendController extends Controller
                 $rating = rating::where('prod_id',$product->id)->get();
                 $rating_sum = rating::where('prod_id',$product->id)->sum('stars_rated');
                 $user_rating = rating::where('prod_id',$product->id)->where('user_id',Auth::id())->first();
+                $reviews =review::where('prod_id' , $product->id)->get();
                 if($rating->count() > 0)
                 {
                     $rating_value = $rating_sum/$rating->count();
@@ -50,7 +54,7 @@ class forntendController extends Controller
                 else{
                     $rating_value = 0;
                 }
-                return view ('fornttent.product.produt_details',compact('product','rating','rating_value','user_rating'));
+                return view ('fornttent.product.produt_details',compact('product','rating','rating_value','user_rating','reviews'));
 
             }
             else{

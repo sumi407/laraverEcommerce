@@ -119,17 +119,29 @@
                         
                         </div>
                         <div class="col-md-8">
-                            <label for=""> sumi</label>
-                            <a href="">Edit</a>
-                            <br>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star "></i>
-                            <small>Reviewed on 27 Aug 2022</small>
-                            <p>Product was good Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt inventore assumenda magni iure commodi esse dolor qui dicta doloremque eaque rerum sunt, culpa possimus facilis optio fugiat non nam. Repellat?</p>
-
+                            @foreach ($reviews as $item )
+                                <div class="user-review">            
+                                    <label for="">{{ $item->user->name }}</label>
+                                    @if ($item->user_id == Auth::id())
+                                         <a href="{{ url('edit_review/'.$product->name.'/userreview') }}">Edit</a>   
+                                    @endif
+                                    <br>
+                                    @if($item->rating)
+                                    @php
+                                        $user_rated = $item->rating->stars_rated
+                                    @endphp
+                                        @for($i=1; $i<= $user_rated; $i++)
+                                             <i class="fa fa-star checked"></i>
+                                        @endfor
+                                        @for ( $j=$user_rated+1 ; $j <= 5; $j++)
+                                            <i class="fa fa-star"></i>
+                                        @endfor
+                                    @endif
+                                
+                                    <small>Reviewed on {{ $item->created_at->format('d M Y') }}</small>
+                                    <p>{{ $item->user_review }}</p>
+                                </div>
+                            @endforeach
                             
                         </div>
                     </div>
